@@ -1,0 +1,5 @@
+com\tangv\cloud\entities\CommonResult.class
+com\tangv\cloud\entities\BasePojo.class
+com\tangv\cloud\commonMain.class
+com\tangv\cloud\entities\Payment.class
+com\tangv\cloud\declare\IPojo.class
