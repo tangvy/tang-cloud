@@ -4,6 +4,8 @@ import com.tangv.cloud.entities.Payment;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * Description:
  * Author:      TangWei
@@ -13,8 +15,10 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface PaymentDao {
 
-    public int create(Payment payment);
+    int create(Payment payment);
 
-    public Payment getPaymentById(@Param("id") Long id);
+    Payment getPaymentById(@Param("id") Long id);
+
+    List<Payment> getAll();
 
 }

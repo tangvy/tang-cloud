@@ -6,6 +6,7 @@ import com.tangv.cloud.service.PaymentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Description:
@@ -26,5 +27,15 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public Payment getPaymentById(Long id) {
         return paymentDao.getPaymentById(id);
+    }
+
+    @Override
+    public List<Payment> getAll() {
+        return paymentDao.getAll();
+    }
+
+    @Override
+    public void exportPayment() {
+        List<Payment> paymentList = this.getAll();
     }
 }

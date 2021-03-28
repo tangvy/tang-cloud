@@ -70,4 +70,8 @@ public class PaymentController {
         return this.discoveryClient;
     }
 
+    public CommonResult exportPayment() {
+        return new CommonResult(200,"导出成功！");
+    }
+
 }
