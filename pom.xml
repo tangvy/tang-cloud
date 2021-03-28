@@ -11,15 +11,16 @@
 
     <modules>
         <module>cloud-provider-payment8001</module>
-      <module>cloud-consumer-order80</module>
-      <module>cloud-api-commons</module>
-      <module>cloud-eureka-server7001</module>
-      <module>cloud-eureka-server7002</module>
-      <module>cloud-provider-payment8002</module>
+        <module>cloud-consumer-order80</module>
+        <module>cloud-api-commons</module>
+        <module>cloud-eureka-server7001</module>
+        <module>cloud-eureka-server7002</module>
+        <module>cloud-provider-payment8002</module>
         <module>cloud-provider-payment8004</module>
+        <module>cloud-gateway-gateway8010</module>
     </modules>
 
-  <!--同一管理jar包版本-->
+  <!--统一管理jar包版本-->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>

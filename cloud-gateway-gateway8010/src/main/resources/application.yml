@@ -1,0 +1,19 @@
+server:
+  port: 8010
+
+
+eureka:
+  client:
+    #表示是否将自己注册进eureka server默认为true
+    register-with-eureka: true
+    #表示是否从eureka server抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true
+    fetch-registry: true
+    service-url:
+      #defaultZone: http://localhost:7001/eureka  单机版
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+  instance:
+    instance-id: gateway8010
+    prefer-ip-address: true #访问路径显示IP地址
+spring:
+  application:
+    name: cloud-gateway-service
