@@ -1,5 +1,6 @@
 package com.tangv.cloud.controller;
 
+import com.tangv.cloud.clients.PaymentClient;
 import com.tangv.cloud.entities.CommonResult;
 import com.tangv.cloud.entities.Payment;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ public class OrderController {
     @Resource
     private RestTemplate restTemplate;
 
+    @Resource
+    private PaymentClient paymentClient;
+
     @GetMapping("/consumer/payment/create")
     public CommonResult<Payment> create(@RequestBody Payment payment) {
         return restTemplate.postForObject(PAYMENT_URL+"/payment/create",payment,CommonResult.class);
@@ -34,5 +38,10 @@ public class OrderController {
     @GetMapping("/consumer/payment/get/{id}")
     public CommonResult<Payment> getPayment(@PathVariable Long id) {
         return restTemplate.getForObject(PAYMENT_URL+"/payment/get/"+id,CommonResult.class);
+    }
+
+    @GetMapping("/consumer/feign/payment/get/{id}")
+    public CommonResult<Payment> getFeignPayment(@PathVariable Long id) {
+        return paymentClient.create(id);
     }
 }

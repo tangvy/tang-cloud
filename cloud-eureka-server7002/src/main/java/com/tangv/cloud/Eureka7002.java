@@ -2,16 +2,17 @@ package com.tangv.cloud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
- * author:   tangwei
- * Date:     2021/3/28 9:52
  * Description:
+ * Author:      TangWei
+ * Date:        2020/7/12 9:02 上午
  */
 @SpringBootApplication
-public class GatewayMain8010 {
-
+@EnableEurekaServer
+public class Eureka7002 {
     public static void main(String[] args) {
-        SpringApplication.run(GatewayMain8010.class, args);
+        SpringApplication.run(Eureka7002.class,args);
     }
 }
