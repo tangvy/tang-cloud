@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 9002
 
 spring:
   application:
-    name: nacos-order-consumer
+    name: nacos-payment-provider
   cloud:
     nacos:
       discovery:
@@ -14,3 +14,9 @@ spring:
         file-extension: yaml
         group: TEST_GROUP
         namespace: test
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
