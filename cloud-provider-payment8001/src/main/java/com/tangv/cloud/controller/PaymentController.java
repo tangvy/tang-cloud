@@ -1,18 +1,30 @@
 package com.tangv.cloud.controller;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
+import com.tangv.cloud.dao.TOrderMapper;
+import com.tangv.cloud.dao.TUserMapper;
 import com.tangv.cloud.entities.CommonResult;
 import com.tangv.cloud.entities.Payment;
+import com.tangv.cloud.model.TOrder;
+import com.tangv.cloud.model.TUser;
 import com.tangv.cloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Description:
@@ -28,6 +40,15 @@ public class PaymentController {
 
     @Resource
     private DiscoveryClient discoveryClient;
+
+    @Resource
+    private TOrderMapper tOrderMapper;
+
+    @Resource
+    private TUserMapper tUserMapper;
+
+    /*@Resource
+    private RedissonClient redissonClient;*/
 
     @Value("${server.port}")
     private String serverPort;
@@ -57,7 +78,7 @@ public class PaymentController {
     }
 
     @GetMapping("/payment/discovery")
-    public Object discovery() {
+    public Object discovery() throws InterruptedException {
         List<String> services = discoveryClient.getServices();
         for (String service : services) {
             log.info("service:"+service);
@@ -67,11 +88,23 @@ public class PaymentController {
             log.info(instance.getInstanceId()+"\t"+instance.getServiceId()+"\t"+instance.getHost()
             +instance.getPort()+"\t"+instance.getUri());
         }
+        /*RLock rlock = redissonClient.getLock("tang_lock_key");
+        rlock.lock();
+        Thread.sleep(2*1000);
+        rlock.unlock();*/
         return this.discoveryClient;
     }
 
+
+    @GetMapping("/test")
     public CommonResult exportPayment() {
+        //0库1表
+        TOrder tOrder1 = new TOrder(3,2);
+        //1库3表
+        /*TOrder tOrder2 = new TOrder(5,9);
+        tOrderMapper.insert(tOrder1);
+        tOrderMapper.insert(tOrder2);*/
+        tUserMapper.insert(new TUser(1, "Lebron James"));
         return new CommonResult(200,"导出成功！");
     }
-
 }
