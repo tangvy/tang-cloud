@@ -1,0 +1,39 @@
+server:
+  port: 8010
+
+
+eureka:
+  client:
+    #表示是否将自己注册进eureka server默认为true
+    register-with-eureka: true
+    #表示是否从eureka server抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true
+    fetch-registry: true
+    service-url:
+      #defaultZone: http://localhost:7001/eureka  单机版
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+  instance:
+    instance-id: gateway8010
+    prefer-ip-address: true #访问路径显示IP地址
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+      routes:
+        - id: payment_route1
+          #uri: http://localhost:8001
+          uri: lb://cloud-payment-service #匹配后提供服务的路由地址
+          predicates:
+            - Path=/payment/get/**
+            - After=2021-03-28T16:25:07.311+08:00[Asia/Shanghai] #必须在指定时间之后
+            #- Cookie=username,tw 必须带指定cookie访问
+
+        - id: payment_route2
+          #uri: http://localhost:8001
+          uri: lb://cloud-payment-service #匹配后提供服务的路由地址
+          predicates:
+            - Path=/payment/discovery

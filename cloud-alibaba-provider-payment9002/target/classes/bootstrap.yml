@@ -1,0 +1,22 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.68.128:1111
+        namespace: test
+      config:
+        server-addr: 192.168.68.128:1111
+        file-extension: yaml
+        group: TEST_GROUP
+        namespace: test
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

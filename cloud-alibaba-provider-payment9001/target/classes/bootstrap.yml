@@ -1,0 +1,36 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.68.128:1111
+        namespace: test
+      config:
+        server-addr: 192.168.68.128:1111
+        file-extension: yaml
+        group: TEST_GROUP
+        namespace: test
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+
+  datasource:
+    url: jdbc:mysql://192.168.68.128:3307/tang-feature?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
