@@ -7,6 +7,7 @@ import com.tangv.cloud.dao.TOrderMapper;
 import com.tangv.cloud.dao.TUserMapper;
 import com.tangv.cloud.entities.CommonResult;
 import com.tangv.cloud.entities.Payment;
+import com.tangv.cloud.model.Goods;
 import com.tangv.cloud.model.TOrder;
 import com.tangv.cloud.model.TUser;
 import com.tangv.cloud.service.PaymentService;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +51,9 @@ public class PaymentController {
 
     /*@Resource
     private RedissonClient redissonClient;*/
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     @Value("${server.port}")
     private String serverPort;
@@ -99,12 +104,14 @@ public class PaymentController {
     @GetMapping("/test")
     public CommonResult exportPayment() {
         //0库1表
-        TOrder tOrder1 = new TOrder(3,2);
+        /*TOrder tOrder1 = new TOrder(3,2);
         //1库3表
-        /*TOrder tOrder2 = new TOrder(5,9);
+        *//*TOrder tOrder2 = new TOrder(5,9);
         tOrderMapper.insert(tOrder1);
-        tOrderMapper.insert(tOrder2);*/
-        tUserMapper.insert(new TUser(1, "Lebron James"));
-        return new CommonResult(200,"导出成功！");
+        tOrderMapper.insert(tOrder2);*//*
+        tUserMapper.insert(new TUser(1, "Lebron James"));*/
+        redisTemplate.opsForValue().set("goods", new Goods("efeifjoeifjewifjefefefeef"));
+        Object o = redisTemplate.opsForValue().get("a");
+        return new CommonResult(200,"获取成功！", o);
     }
 }
