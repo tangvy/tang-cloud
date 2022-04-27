@@ -2,10 +2,6 @@ package com.tangv.cloud.service;
 
 import com.tangv.cloud.entities.Payment;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.scheduling.annotation.Async;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Description:
@@ -17,11 +13,5 @@ public interface PaymentService {
     public int create(Payment payment);
 
     public Payment getPaymentById(@Param("id") Long id);
-
-    public List<Payment> getAll();
-
-    public void exportPayment();
-
-    public void interrupt();
 
 }
